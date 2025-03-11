@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Michael S. Eco - Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0B0C10;
+        }
+        header {
+            background: #1F2833;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 3px solid lightgrey;
+        }
+        .header-text {
+            text-align: left;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background: #FFF5E1;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
+            margin-top: 20px;
+        }
+        .project {
+            margin-bottom: 20px;
+            background: #FFF5E1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .project h3 {
+            margin-bottom: 10px;
+        }
+        
+        .project-album {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .project-album img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .project-album img:hover {
+            transform: scale(1.1);
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+    </style>
+    <script>
+        function openLightbox(img) {
+            document.getElementById("lightbox-img").src = img.src;
+            document.getElementById("lightbox").style.display = "flex";
+        }
+        
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="Me.jpg" alt="Profile Picture" class="profile-img">
+        <div class="header-text">
+            <h1>John Michael S. Eco</h1>
+            <p>Website Developer | Android Developer | IoT Enthusiast</p>
+        </div>
+    </header>
+    <br>
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I'm a passionate Website Developer, Android Developer, and IoT Enthusiast with a strong background in building innovative applications and smart solutions. I specialize in mobile and web development, integrating IoT technologies to create seamless, interactive experiences. Whether it's crafting intuitive user interfaces, optimizing backend systems, or designing embedded solutions, I thrive on turning ideas into functional, efficient, and engaging products.</p>
+        </section>
+        <section id="skills">
+            <h2>Skills & Expertise</h2>
+            <ul>
+                <li>Website Development (Front-end & Back-end)</li>
+                <li>Android Development (Kotlin)</li>
+                <li>IoT & Embedded Systems</li>
+                <li>UI/UX Design & Responsive Web Apps</li>
+                <li>Database Management & APIs</li>
+            </ul>
+        </section>
+        <section id="projects">
+            <h2>Projects</h2>
+        
+            <div class="project">
+                <h3>E-LAURA: Elektronikong Laro at Ugnayan sa Florante at Laura</h3>
+                <div class="project-album">
+                    <img src="E-Laura.jpg" alt="E_laura Image 1" onclick="openLightbox(this)">
+                    <img src="E-Laura2.jpg" alt="E_laura Image 2" onclick="openLightbox(this)">
+                    <img src="E-Laura3.png" alt="E_laura Image 3" onclick="openLightbox(this)">
+                </div>
+                <p>E-LAURA is an interactive quiz-based game inspired by Florante at Laura. It challenges players with engaging questions about the classic Filipino literary work, enhancing their knowledge while making learning fun and interactive.</p>
+            </div>
+        
+            <div class="project">
+                <h3>Farm Villa Private Resort Booking System</h3>
+                <div class="project-album">
+                    <img src="Farm_Villa.png" alt="PetCare Image 1" onclick="openLightbox(this)">
+                    <img src="Farm_Villa2.png" alt="PetCare Image 2" onclick="openLightbox(this)">
+                    <img src="Farm_Villa3.png" alt="PetCare Image 3" onclick="openLightbox(this)">
+                </div>
+                <p>Farm Villa Private Resort Booking System is a user-friendly platform designed to streamline resort reservations. It allows guests to browse available accommodations, check pricing, and book their stay with ease. The system ensures a seamless booking experience, making vacation planning more convenient and efficient.</p>
+            </div>
+        
+            <div class="project">
+                <h3>INKI: Automated Printing Kiosk</h3>
+                <div class="project-album">
+                    <img src="INKI1.png" alt="INKI Image 1" onclick="openLightbox(this)">
+                    <img src="INKI2.png" alt="INKI Image 2" onclick="openLightbox(this)">
+                    <img src="INKI3.png" alt="INKI Image 3" onclick="openLightbox(this)">
+                    <img src="INKI4.png" alt="INKI Image 3" onclick="openLightbox(this)">
+                </div>
+                <p> a self-service printing solution designed for convenience and efficiency. It allows users to print documents, photos, and other materials instantly without the need for staff assistance. With a user-friendly interface and multiple file upload options, INKI provides a seamless and hassle-free printing experience for students, professionals, and businesses.</p>
+            </div>
+        
+            <div class="project">
+                <h3>San Vicente Legislative Tracking System</h3>
+                <div class="project-album">
+                    <img src="SVL1.png" alt="SVL Image 1" onclick="openLightbox(this)">
+                    <img src="SVL2.png" alt="SVL Image 2" onclick="openLightbox(this)">
+                    <img src="SVL3.png" alt="SVL Image 3" onclick="openLightbox(this)">
+                </div>
+                <p>San Vicente Legislative Tracking System is a digital platform designed to streamline the management and monitoring of legislative documents, ordinances, and resolutions. It provides an efficient way for government officials and citizens to track the status, history, and details of legislative records, ensuring transparency and improved governance.</p>
+            </div>
+        </section>
+        
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <img id="lightbox-img">
+        </div>
+        
+        <section id="contact">
+            <h2>Contact</h2>
+            <p><b>Facebook:</b> https://www.facebook.com/johnmicheal.eco/</p>
+            <p><b>Email:</b> johnmichaeleco@gmail.com</p>
+            <p><b>Phone Number:</b> 09088939571</p>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2025 John Michael S. Eco. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
