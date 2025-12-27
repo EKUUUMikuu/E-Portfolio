@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>John Michael S. Eco - Portfolio</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
+        :root{
+            --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            --font-head: 'Poppins', system-ui, Arial;
+            --accent-start: #1F8EF1;
+            --muted: #6b7280;
+        }
         body {
-            font-family: Arial, sans-serif;
+            font-family: var(--font-sans);
             margin: 0;
             padding: 0;
             background-color: #0B0C10;
@@ -14,48 +21,176 @@
         header {
             background: #1F2833;
             color: #fff;
+            display: block;
+            padding: 0.85rem 0; /* vertical padding only; inner aligns horizontally */
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        /* inner wrapper to align header content with .container */
+        .header-inner {
+            max-width: var(--container-max);
+            width: calc(100% - 48px);
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 1rem;
+            gap: 18px;
+            justify-content: flex-start;
         }
-        .profile-img {
+        .avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            margin-right: 15px;
+            overflow: hidden;
             border: 3px solid lightgrey;
+            flex: 0 0 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ccc; /* fallback while small images don't fill */
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* crop to fill avatar */
+            display: block;
+            image-rendering: auto; /* prefer quality for photos */
         }
         .header-text {
             text-align: left;
+            color: #fff;
         }
-        .container {
-            width: 80%;
-            margin: auto;
+
+        /* accessibility: skip link */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
             overflow: hidden;
-            padding: 20px;
+        }
+        .skip-link:focus {
+            left: 16px;
+            top: 8px;
+            width: auto;
+            height: auto;
+            padding: 8px 12px;
             background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            color: #0b1220;
+            border-radius: 6px;
+            z-index: 9999;
+        }
+        :root{
+            --container-max: 1000px;
+            --accent-start: #1F8EF1;
+            --accent-end: #1967D2;
+            /* match header-inner dark theme */
+            --container-bg: #1F2833; /* same as header background */
+            --container-border: rgba(255,255,255,0.04);
+            --container-shadow: 0 12px 34px rgba(2,6,23,0.25);
+        }
+
+        .container {
+            max-width: var(--container-max);
+            width: calc(100% - 48px);
+            margin: 32px auto;
+            position: relative;
+            padding: 28px 32px 28px 48px; /* extra left padding for accent */
+            background: var(--container-bg);
+            box-shadow: var(--container-shadow);
+            border-radius: 14px;
+            border: 1px solid var(--container-border);
+            color: #ffffff;
+            line-height: 1.65;
+            transition: box-shadow 180ms ease, transform 180ms ease;
+            overflow: visible;
+        }
+
+        /* Typography tweaks */
+        h1 {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            margin: 0 0 6px 0;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-head);
+            font-size: 1.15rem;
+            color: #0b1220;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 12px;
+        }
+
+    /* only style paragraphs inside the main container so header/footer copy keeps their own colors */
+    .container p { color: #d7e6f6; }
+
+        /* subtle left accent bar */
+        .container::before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            bottom: 12px;
+            width: 6px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, var(--accent-start), var(--accent-end));
+            box-shadow: 0 6px 18px rgba(31,142,241,0.18);
+        }
+
+        /* Slight lift on hover for larger screens */
+        @media (hover: hover) and (min-width: 720px) {
+            .container:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 60px rgba(2,6,23,0.14);
+            }
+        }
+
+        /* Tweak padding for small screens and reduce accent size */
+        @media (max-width: 600px) {
+            .container {
+                width: calc(100% - 32px);
+                margin: 18px auto;
+                padding: 18px;
+                border-radius: 12px;
+            }
+            .container::before {
+                left: 10px;
+                top: 10px;
+                bottom: 10px;
+                width: 4px;
+                border-radius: 4px;
+            }
         }
         section {
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
-        h2 {
-            color: #333;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
+        /* section headings inside container (light on dark) */
+        .container h2 {
+            color: #e6f0ff;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 8px;
+            margin-bottom: 14px;
         }
-        ul {
+        /* skills as chips */
+        #skills ul {
             list-style: none;
             padding: 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-        ul li {
-            background: #FFF5E1;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
+        #skills ul li {
+            background: rgba(31,142,241,0.14);
+            color: #eaf6ff;
+            margin: 0;
+            padding: 8px 12px;
+            border-radius: 999px;
             font-weight: 600;
+            font-size: 0.95rem;
         }
         footer {
             text-align: center;
@@ -64,78 +199,326 @@
             color: white;
             margin-top: 20px;
         }
+        /* projects grid and card style */
+        #projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
         .project {
-            margin-bottom: 20px;
-            background: #FFF5E1;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        
-        .project h3 {
-            margin-bottom: 10px;
-        }
-        
-        .project-album {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(2,6,23,0.06);
+            overflow: hidden;
             display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.02);
         }
-        
-        .project-album img {
-            width: 100px;
-            height: 100px;
-            border-radius: 8px;
+
+        .project h3 { margin: 12px 16px 6px; color: #ffffff; }
+        .project p { margin: 0 16px 16px; color: #c8d7ea; }
+
+        /* project thumbnail, content and actions */
+        .project-thumb {
+            width: 100%;
+            height: 160px;
             object-fit: cover;
+            display: block;
+        }
+
+        /* Prevent any hover/transform/zoom behavior on thumbnails only; keep lightbox transitions enabled */
+        .project-thumb,
+        .project-thumb:hover,
+        .project-thumb:active {
+            transform: none !important;
+            transition: none !important;
+            will-change: auto !important;
+        }
+
+        .project-content { padding: 12px 16px 14px; flex: 1 1 auto; }
+
+        .project-actions { display: flex; gap: 8px; padding: 0 16px 16px; }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(180deg,var(--accent-start),var(--accent-start));
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.2s;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
         }
-        
-        .project-album img:hover {
-            transform: scale(1.1);
-        }
+
+        .btn:hover { transform: translateY(-2px); opacity: 0.95; }
         
         .lightbox {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
             justify-content: center;
             align-items: center;
+            z-index: 9999;
         }
-        
-        .lightbox img {
-            max-width: 80%;
-            max-height: 80%;
+
+        /* while lightbox is open, prevent underlying elements from responding to hover/focus/transform */
+        .lightbox-open header,
+        .lightbox-open .container,
+        .lightbox-open footer {
+            pointer-events: none !important;
+            user-select: none !important;
+        }
+
+        /* allow lightbox and its controls to remain interactive even though container is disabled */
+        .lightbox-open .lightbox,
+        .lightbox-open .lightbox * {
+            pointer-events: auto !important;
+        }
+
+        /* Limit transition/transform disabling to underlying page regions only (keep lightbox transitions enabled)
+           This avoids disabling the lightbox fade while still preventing hover/transform side-effects on the page. */
+        .lightbox-open header,
+        .lightbox-open .container,
+        .lightbox-open footer {
+            transition: none !important;
+            transform: none !important;
+            will-change: auto !important;
+        }
+
+        .lightbox-inner {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            /* Stack and center the image layers using CSS grid to avoid sizing issues */
+            display: grid;
+            place-items: center;
+            gap: 0;
+        }
+
+        /* Double-buffered image layers for smooth cross-fade without flicker */
+        .lightbox .lightbox-layer {
+            /* place both images into the same grid cell so they overlap */
+            grid-area: 1 / 1 / 2 / 2;
+            display: block;
+            max-width: 100%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
             border-radius: 10px;
+            opacity: 0;
+            transition: opacity 600ms cubic-bezier(.22,.9,.29,1);
+            will-change: opacity;
+            z-index: 0;
+            background: transparent;
+        }
+
+        .lightbox .lightbox-layer.visible {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .lightbox .lightbox-layer.hidden {
+            opacity: 0;
+            z-index: 1;
+        }
+
+        /* fixed controls so they don't shift when image size changes */
+        .lightbox .lightbox-close,
+        .lightbox .lightbox-prev,
+        .lightbox .lightbox-next {
+            position: fixed;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 10001;
+        }
+
+    .lightbox .lightbox-close { right: 20px; top: 20px; width:36px; height:36px; background: rgba(0,0,0,0.75); }
+    .lightbox .lightbox-prev { left: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); }
+    .lightbox .lightbox-next { right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); }
+
+        @media (max-width: 720px) {
+            .lightbox .lightbox-prev { left: 12px; top: auto; bottom: 12px; transform: none; }
+            .lightbox .lightbox-next { right: 12px; top: auto; bottom: 12px; transform: none; }
+            .lightbox .lightbox-close { right: 12px; top: 12px; }
+        }
+
+        /* make controls more visible */
+        .lightbox .lightbox-close,
+        .lightbox .lightbox-prev,
+        .lightbox .lightbox-next {
+            box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+            opacity: 0.98;
+        }
+        .lightbox .lightbox-close:hover,
+        .lightbox .lightbox-prev:hover,
+        .lightbox .lightbox-next:hover {
+            transform: translateY(-4px) scale(1.03);
+            background: var(--accent-start);
+            color: #fff;
         }
     </style>
     <script>
-        function openLightbox(img) {
-            document.getElementById("lightbox-img").src = img.src;
-            document.getElementById("lightbox").style.display = "flex";
+    // gallery state
+    let _gallery = [];
+    let _galleryIndex = 0;
+    let _currentLoad = 0; // incrementing id to avoid race when loading images
+    // which image layer is currently visible (0 or 1)
+    let _activeLayer = 0;
+
+        function openGallery(list, startIndex = 0) {
+            _gallery = Array.isArray(list) ? list : String(list).split(',').map(s=>s.trim()).filter(Boolean);
+            _galleryIndex = Math.max(0, Math.min(startIndex, _gallery.length - 1));
+            if (_gallery.length === 0) return;
+            // Display lightbox and set initial image immediately into the active layer
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox').style.display = 'flex';
+            // place initial image into the currently active layer so user sees something immediately
+            const a = document.getElementById('lightbox-img-a');
+            const b = document.getElementById('lightbox-img-b');
+            if (a && b) {
+                const visible = _activeLayer === 0 ? a : b;
+                visible.src = _gallery[_galleryIndex];
+                visible.classList.add('visible');
+                visible.classList.remove('hidden');
+                const hidden = _activeLayer === 0 ? b : a;
+                hidden.classList.remove('visible');
+                hidden.classList.add('hidden');
+            }
+            // then ensure any subsequent changes use the safe cross-fade loader
+            setLightboxImage(_gallery[_galleryIndex]);
+            // prevent underlying page hover/transform side-effects
+            document.body.classList.add('lightbox-open');
+            // focus for keyboard navigation
+            document.getElementById('lightbox').focus();
         }
-        
+
+        function openGalleryFromButton(btn) {
+            const images = btn.dataset.images || btn.getAttribute('data-images');
+            if (!images) return;
+            openGallery(images, 0);
+        }
+
+        function galleryNext() {
+            if (!_gallery.length) return;
+            _galleryIndex = (_galleryIndex + 1) % _gallery.length;
+            setLightboxImage(_gallery[_galleryIndex]);
+        }
+
+        function galleryPrev() {
+            if (!_gallery.length) return;
+            _galleryIndex = (_galleryIndex - 1 + _gallery.length) % _gallery.length;
+            setLightboxImage(_gallery[_galleryIndex]);
+        }
+
+        // set image using double-buffered cross-fade to avoid flicker
+        function setLightboxImage(src) {
+            const a = document.getElementById('lightbox-img-a');
+            const b = document.getElementById('lightbox-img-b');
+            if (!a || !b) return;
+            _currentLoad += 1;
+            const loadId = _currentLoad;
+
+            // determine hidden / visible layers
+            const visible = _activeLayer === 0 ? a : b;
+            const hidden = _activeLayer === 0 ? b : a;
+
+            // preload into a temporary Image first
+            const tmp = new Image();
+            tmp.onload = function() {
+                if (loadId !== _currentLoad) return; // newer load started
+
+                // place the fully-loaded image into the hidden layer
+                hidden.src = src;
+
+                // ensure the hidden image is fully painted before starting fade
+                requestAnimationFrame(() => {
+                    // make hidden visible and fade it in
+                    hidden.classList.add('visible');
+                    hidden.classList.remove('hidden');
+
+                    // fade the previously visible layer out
+                    visible.classList.remove('visible');
+                    visible.classList.add('hidden');
+
+                    // after transition completes, swap active layer
+                    // transition duration is 600ms; setTimeout slightly longer to be safe
+                    setTimeout(() => {
+                        if (loadId !== _currentLoad) return;
+                        _activeLayer = _activeLayer === 0 ? 1 : 0;
+                        // optionally clear the old hidden layer src to free memory (not strictly required)
+                        // visible.src = '';
+                    }, 650);
+                });
+            };
+            tmp.onerror = function() {
+                if (loadId !== _currentLoad) return;
+                // fallback: set directly and do a simple swap
+                hidden.src = src;
+                requestAnimationFrame(() => {
+                    hidden.classList.add('visible');
+                    hidden.classList.remove('hidden');
+                    visible.classList.remove('visible');
+                    visible.classList.add('hidden');
+                    setTimeout(() => { if (loadId === _currentLoad) _activeLayer = _activeLayer === 0 ? 1 : 0; }, 650);
+                });
+            };
+            tmp.src = src;
+        }
+
         function closeLightbox() {
-            document.getElementById("lightbox").style.display = "none";
+            document.getElementById('lightbox').style.display = 'none';
+            _gallery = [];
+            _galleryIndex = 0;
+            // restore page interactivity
+            document.body.classList.remove('lightbox-open');
+            // cancel any pending image load actions
+            _currentLoad += 1;
         }
+
+        // keyboard support
+        document.addEventListener('keydown', function(e){
+            const lb = document.getElementById('lightbox');
+            if (!lb || lb.style.display !== 'flex') return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') galleryNext();
+            if (e.key === 'ArrowLeft') galleryPrev();
+        });
     </script>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header>
-        <img src="Me.jpg" alt="Profile Picture" class="profile-img">
-        <div class="header-text">
-            <h1>John Michael S. Eco</h1>
-            <p>Website Developer | Android Developer | IoT Enthusiast</p>
+        <div class="header-inner">
+            <div class="avatar">
+                <!-- Add a high-res fallback in the srcset (create Me_2@2x.jpg at ~240x240 or higher) -->
+                <img src="Me_2.jpg" srcset="Me_2@2x.jpg 2x, Me_2.jpg 1x" alt="Profile Picture" class="profile-img">
+            </div>
+            <div class="header-text">
+                <h1>John Michael S. Eco</h1>
+                <p>Website Developer | Android Developer | IoT Enthusiast | Game Developer</p>
+            </div>
         </div>
     </header>
     <br>
+    <main id="main">
     <div class="container">
         <section id="about">
             <h2>About Me</h2>
-            <p>I'm a passionate Website Developer, Android Developer, and IoT Enthusiast with a strong background in building innovative applications and smart solutions. I specialize in mobile and web development, integrating IoT technologies to create seamless, interactive experiences. Whether it's crafting intuitive user interfaces, optimizing backend systems, or designing embedded solutions, I thrive on turning ideas into functional, efficient, and engaging products.</p>
+            <p>I am an IT undergraduate at Camarines Norte State College with hands-on experience building web, mobile, and embedded solutions. I develop responsive websites and web apps using HTML, CSS and JavaScript, and create native Android applications with Kotlin and Java. On the backend I work with databases (MySQL) and APIs to deliver reliable, data-driven features. I also enjoy game development and 3D rendering, and have practical experience using C++ and game frameworks for small projects. In the IoT space I’ve integrated microcontrollers and sensors to create connected prototypes and telemetry solutions. I focus on writing clean, maintainable code, designing intuitive user interfaces, and iterating quickly to solve real problems. I’m currently seeking opportunities to collaborate on projects or internships where I can contribute my skills and continue learning modern development practices.</p>
         </section>
         <section id="skills">
             <h2>Skills & Expertise</h2>
@@ -149,51 +532,84 @@
         </section>
         <section id="projects">
             <h2>Projects</h2>
+            <div class="projects-grid">
         
             <div class="project">
-                <h3>E-LAURA: Elektronikong Laro at Ugnayan sa Florante at Laura</h3>
-                <div class="project-album">
-                    <img src="E-Laura.jpg" alt="E_laura Image 1" onclick="openLightbox(this)">
-                    <img src="E-Laura2.jpg" alt="E_laura Image 2" onclick="openLightbox(this)">
-                    <img src="E-Laura3.png" alt="E_laura Image 3" onclick="openLightbox(this)">
+                <img class="project-thumb" src="E-Laura.jpg" alt="E-LAURA thumbnail">
+                <div class="project-content">
+                    <h3>E-LAURA: Elektronikong Laro at Ugnayan sa Florante at Laura</h3>
+                    <p>E-LAURA is an interactive quiz-based game inspired by Florante at Laura. It challenges players with engaging questions about the classic Filipino literary work, enhancing their knowledge while making learning fun and interactive.</p>
                 </div>
-                <p>E-LAURA is an interactive quiz-based game inspired by Florante at Laura. It challenges players with engaging questions about the classic Filipino literary work, enhancing their knowledge while making learning fun and interactive.</p>
+                <div class="project-actions">
+                    <button class="btn" data-images="E-Laura.jpg, E-Laura2.jpg, E-Laura3.png" onclick="openGalleryFromButton(this)">View</button>
+                </div>
             </div>
         
             <div class="project">
-                <h3>Farm Villa Private Resort Booking System</h3>
-                <div class="project-album">
-                    <img src="Farm_Villa.png" alt="PetCare Image 1" onclick="openLightbox(this)">
-                    <img src="Farm_Villa2.png" alt="PetCare Image 2" onclick="openLightbox(this)">
-                    <img src="Farm_Villa3.png" alt="PetCare Image 3" onclick="openLightbox(this)">
+                <img class="project-thumb" src="Farm_Villa.png" alt="Farm Villa thumbnail">
+                <div class="project-content">
+                    <h3>Farm Villa Private Resort Booking System</h3>
+                    <p>Farm Villa Private Resort Booking System is a user-friendly platform designed to streamline resort reservations. It allows guests to browse available accommodations, check pricing, and book their stay with ease.</p>
                 </div>
-                <p>Farm Villa Private Resort Booking System is a user-friendly platform designed to streamline resort reservations. It allows guests to browse available accommodations, check pricing, and book their stay with ease. The system ensures a seamless booking experience, making vacation planning more convenient and efficient.</p>
+                <div class="project-actions">
+                    <button class="btn" data-images="Farm_Villa.png, Farm_Villa2.png, Farm_Villa3.png" onclick="openGalleryFromButton(this)">View</button>
+                </div>
             </div>
         
             <div class="project">
-                <h3>INKI: Automated Printing Kiosk</h3>
-                <div class="project-album">
-                    <img src="INKI1.png" alt="INKI Image 1" onclick="openLightbox(this)">
-                    <img src="INKI2.png" alt="INKI Image 2" onclick="openLightbox(this)">
-                    <img src="INKI3.png" alt="INKI Image 3" onclick="openLightbox(this)">
-                    <img src="INKI4.png" alt="INKI Image 3" onclick="openLightbox(this)">
+                <img class="project-thumb" src="INKI1.png" alt="INKI thumbnail">
+                <div class="project-content">
+                    <h3>INKI: Automated Printing Kiosk</h3>
+                    <p>A self-service printing solution designed for convenience and efficiency. It allows users to print documents, photos, and other materials instantly without the need for staff assistance.</p>
                 </div>
-                <p> a self-service printing solution designed for convenience and efficiency. It allows users to print documents, photos, and other materials instantly without the need for staff assistance. With a user-friendly interface and multiple file upload options, INKI provides a seamless and hassle-free printing experience for students, professionals, and businesses.</p>
+                <div class="project-actions">
+                    <button class="btn" data-images="INKI1.png, INKI2.png, INKI3.png, INKI4.png" onclick="openGalleryFromButton(this)">View</button>
+                </div>
             </div>
         
             <div class="project">
-                <h3>San Vicente Legislative Tracking System</h3>
-                <div class="project-album">
-                    <img src="SVL1.png" alt="SVL Image 1" onclick="openLightbox(this)">
-                    <img src="SVL2.png" alt="SVL Image 2" onclick="openLightbox(this)">
-                    <img src="SVL3.png" alt="SVL Image 3" onclick="openLightbox(this)">
+                <img class="project-thumb" src="SVL1.png" alt="SVL thumbnail">
+                <div class="project-content">
+                    <h3>San Vicente Legislative Tracking System</h3>
+                    <p>San Vicente Legislative Tracking System is a digital platform designed to streamline the management and monitoring of legislative documents, ordinances, and resolutions. It improves transparency and governance by tracking status and history.</p>
                 </div>
-                <p>San Vicente Legislative Tracking System is a digital platform designed to streamline the management and monitoring of legislative documents, ordinances, and resolutions. It provides an efficient way for government officials and citizens to track the status, history, and details of legislative records, ensuring transparency and improved governance.</p>
+                <div class="project-actions">
+                    <button class="btn" data-images="SVL1.png, SVL2.png, SVL3.png" onclick="openGalleryFromButton(this)">View</button>
+                </div>
+            </div>
+
+            <div class="project">
+                <img class="project-thumb" src="DogGo_5.png" alt="DogGo thumbnail">
+                <div class="project-content">
+                    <h3>DogGo: Veterinary Clinic Management System With IoT Collar Tracking Device</h3>
+                    <p>DogGo is a veterinary clinic management system with IoT collar tracking and RFID-based information to help monitor and manage pets effectively.</p>
+                </div>
+                <div class="project-actions">
+                    <button class="btn" data-images="DogGo.jpg, DogGo_2.jpg, DogGo_3.png, DogGo_4.jpg, DogGo_5.png, DogGo_6.png, DogGo_7.jpg" onclick="openGalleryFromButton(this)">View</button>
+                </div>
+            </div>
+
+            <div class="project">
+                <img class="project-thumb" src="UntilSunrise.png" alt="Game Dev thumbnail">
+                <div class="project-content">
+                    <h3>Until Sunrise Survival Game</h3>
+                    <p>Until Sunrise is a survival game where players must survive the night and find a way to escape the island before sunrise. The game won Best Visuals and Best UI/UX at the IoT Expo 2025 (theme: "Designing Tomorrow: Interactive, Connected, and Immersive Technologies") on December 15, 2025.</p>
+                </div>
+                <div class="project-actions">
+                    <button class="btn" data-images="UntilSunrise.png, UntilSunrise_2.png, UntilSunrise_3.jpg" onclick="openGalleryFromButton(this)">View</button>
+                </div>
             </div>
         </section>
         
-        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-            <img id="lightbox-img">
+        <div id="lightbox" class="lightbox" tabindex="-1">
+            <div class="lightbox-inner" role="dialog" aria-modal="true">
+                <button class="lightbox-close" aria-label="Close" onclick="closeLightbox()">×</button>
+                <button class="lightbox-prev" aria-label="Previous" onclick="galleryPrev()">‹</button>
+                <!-- double-buffered layers to allow flicker-free fades -->
+                <img id="lightbox-img-a" class="lightbox-layer visible" alt="Project image A">
+                <img id="lightbox-img-b" class="lightbox-layer hidden" alt="Project image B">
+                <button class="lightbox-next" aria-label="Next" onclick="galleryNext()">›</button>
+            </div>
         </div>
         
         <section id="contact">
@@ -203,6 +619,7 @@
             <p><b>Phone Number:</b> 09088939571</p>
         </section>
     </div>
+    </main>
     <footer>
         <p>&copy; 2025 John Michael S. Eco. All Rights Reserved.</p>
     </footer>
